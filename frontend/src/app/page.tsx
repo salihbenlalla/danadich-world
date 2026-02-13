@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <div className={styles.titleSection}>
-        <h1 className={styles.title}>دندوش ♡ دندوشة</h1>
+        <h1 className={styles.title}>دندوش ♡<br />و دندوشة</h1>
         <p className={styles.subtitle}>فضاءٌ رقمي يجمع روحين</p>
       </div>
 
@@ -21,7 +21,7 @@ export default function Home() {
         </Link>
       </div>
 
-      <p className={styles.date}>منذ ١٥ سبتمبر ٢٠٢٥</p>
+      <p className={styles.date}>منذ 15 سبتمبر 2025</p>
     </div>
   );
 }

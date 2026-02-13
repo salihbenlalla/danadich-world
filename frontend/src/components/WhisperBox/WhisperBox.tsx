@@ -47,7 +47,7 @@ export default function WhisperBox({
           onChange={(e) => setText(e.target.value)}
           onKeyDown={handleKeyDown}
           onBlur={handleSubmit}
-          placeholder={placeholder}
+          placeholder=""
           autoFocus
           dir="rtl"
         />

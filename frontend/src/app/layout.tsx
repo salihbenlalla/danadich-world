@@ -10,7 +10,7 @@ const tajawal = Tajawal({
 });
 
 export const metadata: Metadata = {
-  title: "دندوش ♡ دندوشة",
+  title: "دندوش و ♡ دندوشة",
   description: "فضاء رقمي يجمع روحين",
 };
 

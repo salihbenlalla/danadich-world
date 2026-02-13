@@ -12,7 +12,7 @@ export default function TogetherState({ active }: TogetherStateProps) {
   return (
     <div className={styles.overlay}>
       <div className={styles.goldenGlow} />
-      <p className={styles.message}>تلاقت أرواحنا منذ ١٥.٠٩.٢٠٢٥</p>
+      <p className={styles.message}>تلاقت أرواحنا منذ 15.09.2025</p>
     </div>
   );
 }

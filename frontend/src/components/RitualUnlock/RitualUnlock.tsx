@@ -13,7 +13,7 @@ export default function RitualUnlock({ role, onUnlock }: RitualUnlockProps) {
 
   const message =
     role === "dandoucha"
-      ? "دندوشة، المِسي هذه الرسالة لتفتحي أبواب عالمنا..."
+      ? "دندوشتي، المِسي هذه الرسالة لتفتحي أبواب عالمنا..."
       : "دندوش، المِس هذه الرسالة لتفتح أبواب عالمنا...";
 
   const handleUnlock = useCallback(() => {

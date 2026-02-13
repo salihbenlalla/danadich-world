@@ -6,6 +6,7 @@ import type { ServerMessage } from "@/hooks/useSocket";
 import Heart from "@/components/Heart/Heart";
 import WhisperBox from "@/components/WhisperBox/WhisperBox";
 import TogetherState from "@/components/TogetherState/TogetherState";
+import StatusCard from "@/components/StatusCard/StatusCard";
 import FloatingDecorations from "@/components/FloatingDecorations/FloatingDecorations";
 import styles from "./DandouchDashboard.module.css";
 
@@ -20,14 +21,14 @@ type StatusKey =
   | "disconnected";
 
 const STATUS_MESSAGES: Record<StatusKey, string> = {
-  waiting: "في انتظار دندوشة...",
-  connected: "دندوشة قد وصلت...",
-  ritual: "دندوشة تفتح أبواب عالمنا...",
-  dreamIntro: "دندوشة تبحر في كلماتك...",
-  mainExperience: "دندوشة دخلت فضاء القلب...",
-  heartTouch: "دندوشة تلامس قلبك الآن!",
-  heartRelease: "دندوشة أزالت يدها...",
-  disconnected: "انقطع الاتصال بدندوشة...",
+  waiting: "في انتظار دندوشتك...",
+  connected: "دندوشتك متصلة...",
+  ritual: "دندوشتك تفتح أبواب عالمكما...",
+  dreamIntro: "دندوشتك تبحر في كلماتك...",
+  mainExperience: "دندوشتك دخلت فضاء القلب...",
+  heartTouch: "دندوشتك تلامس قلبك الآن!",
+  heartRelease: "دندوشتك أزالت يدها...",
+  disconnected: "انقطع الاتصال بدندوشتك...",
 };
 
 function startContinuousVibration(
@@ -66,67 +67,55 @@ export default function DandouchDashboard() {
   const [together, setTogether] = useState(false);
   const [lastWhisper, setLastWhisper] = useState<string | null>(null);
   const [lastWhisperFrom, setLastWhisperFrom] = useState<string | null>(null);
-  const [statusHistory, setStatusHistory] = useState<string[]>([]);
   const vibrateIntervalRef = useRef<ReturnType<typeof setInterval> | null>(
     null
   );
 
-  const addToHistory = useCallback((msg: string) => {
-    setStatusHistory((prev) => [msg, ...prev].slice(0, 5));
-  }, []);
-
-  const handleMessage = useCallback(
-    (msg: ServerMessage) => {
-      switch (msg.type) {
-        case "PARTNER_CONNECTED":
-          setStatus("connected");
-          addToHistory("دندوشة قد وصلت...");
-          break;
-        case "PARTNER_DISCONNECTED":
-          setStatus("disconnected");
-          addToHistory("انقطع الاتصال بدندوشة...");
-          stopContinuousVibration(vibrateIntervalRef);
-          break;
-        case "STAGE_SYNC": {
-          const stage = msg.stage as StatusKey;
-          if (stage && STATUS_MESSAGES[stage]) {
-            setStatus(stage);
-            addToHistory(STATUS_MESSAGES[stage]);
-          }
-          break;
+  const handleMessage = useCallback((msg: ServerMessage) => {
+    switch (msg.type) {
+      case "PARTNER_CONNECTED":
+        setStatus("connected");
+        break;
+      case "PARTNER_DISCONNECTED":
+        setStatus("disconnected");
+        stopContinuousVibration(vibrateIntervalRef);
+        break;
+      case "STAGE_SYNC": {
+        const stage = msg.stage as StatusKey;
+        if (stage && STATUS_MESSAGES[stage]) {
+          setStatus(stage);
         }
-        case "HEART_START":
-          if (msg.role === "dandoucha") {
-            setPartnerHolding(true);
-            setStatus("heartTouch");
-            addToHistory("دندوشة تلامس قلبك الآن!");
-            startContinuousVibration(vibrateIntervalRef, false);
-          }
-          break;
-        case "HEART_STOP":
-          if (msg.role === "dandoucha") {
-            setPartnerHolding(false);
-            setStatus("heartRelease");
-            stopContinuousVibration(vibrateIntervalRef);
-          }
-          break;
-        case "TOGETHER":
-          setTogether(msg.active ?? false);
-          if (msg.active) {
-            startContinuousVibration(vibrateIntervalRef, true);
-          }
-          break;
-        case "NEW_WHISPER":
-          setLastWhisper(msg.text ?? null);
-          setLastWhisperFrom(msg.from ?? null);
-          if (typeof navigator !== "undefined" && navigator.vibrate) {
-            navigator.vibrate([50, 30, 50]);
-          }
-          break;
+        break;
       }
-    },
-    [addToHistory]
-  );
+      case "HEART_START":
+        if (msg.role === "dandoucha") {
+          setPartnerHolding(true);
+          setStatus("heartTouch");
+          startContinuousVibration(vibrateIntervalRef, false);
+        }
+        break;
+      case "HEART_STOP":
+        if (msg.role === "dandoucha") {
+          setPartnerHolding(false);
+          setStatus("heartRelease");
+          stopContinuousVibration(vibrateIntervalRef);
+        }
+        break;
+      case "TOGETHER":
+        setTogether(msg.active ?? false);
+        if (msg.active) {
+          startContinuousVibration(vibrateIntervalRef, true);
+        }
+        break;
+      case "NEW_WHISPER":
+        setLastWhisper(msg.text ?? null);
+        setLastWhisperFrom(msg.from ?? null);
+        if (typeof navigator !== "undefined" && navigator.vibrate) {
+          navigator.vibrate([50, 30, 50]);
+        }
+        break;
+    }
+  }, []);
 
   const { send, isConnected } = useSocket("dandouch", { onMessage: handleMessage });
 
@@ -160,26 +149,10 @@ export default function DandouchDashboard() {
       />
 
       <div className={styles.content}>
-        {/* Status card */}
-        <div className={styles.statusCard}>
-          <h2 className={styles.statusTitle}>حالة دندوشة</h2>
-          <p className={styles.currentStatus}>{STATUS_MESSAGES[status]}</p>
-
-          {/* Status history */}
-          {statusHistory.length > 0 && (
-            <div className={styles.history}>
-              {statusHistory.map((msg, i) => (
-                <p
-                  key={`${msg}-${i}`}
-                  className={styles.historyItem}
-                  style={{ opacity: 1 - i * 0.18 }}
-                >
-                  {msg}
-                </p>
-              ))}
-            </div>
-          )}
-        </div>
+        <StatusCard
+          title="حالة دندوشة"
+          message={STATUS_MESSAGES[status]}
+        />
 
         {/* Heart */}
         <div className={styles.heartArea}>

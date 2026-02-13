@@ -17,11 +17,12 @@
   width: 120px;
   height: 120px;
   animation: heartbeat 1.4s ease-in-out infinite;
-  filter: drop-shadow(0 0 24px var(--rose-glow))
-    drop-shadow(0 0 48px rgba(240, 98, 146, 0.15));
+  filter: drop-shadow(0 0 28px var(--rose-glow))
+    drop-shadow(0 0 56px rgba(240, 98, 146, 0.2));
   transition: filter 0.6s ease;
   position: relative;
   z-index: 2;
+  will-change: transform;
 }
 
 .glowOrb {
@@ -31,99 +32,131 @@
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(240, 98, 146, 0.3) 0%,
-    rgba(206, 147, 216, 0.1) 50%,
+    rgba(240, 98, 146, 0.4) 0%,
+    rgba(206, 147, 216, 0.15) 50%,
     transparent 70%
   );
-  opacity: 0.5;
+  opacity: 0.55;
   animation: orbPulse 2s ease-in-out infinite;
   transition: all 0.6s ease;
   z-index: 1;
+  will-change: transform, opacity;
 }
 
 /* Active state when user is holding */
 .active .heartSvg {
   animation: heartbeatActive 0.8s ease-in-out infinite;
-  filter: drop-shadow(0 0 40px var(--rose-glow))
-    drop-shadow(0 0 70px rgba(240, 98, 146, 0.25));
+  filter: drop-shadow(0 0 50px var(--rose-glow))
+    drop-shadow(0 0 90px rgba(240, 98, 146, 0.35))
+    drop-shadow(0 0 120px rgba(240, 98, 146, 0.15));
 }
 
 .active .glowOrb {
-  width: 210px;
-  height: 210px;
-  opacity: 0.65;
+  width: 220px;
+  height: 220px;
+  opacity: 0.75;
+  animation: orbPulseActive 0.8s ease-in-out infinite;
 }
 
 /* Partner is holding their heart */
 .partnerPulse .glowOrb {
-  animation: orbPulse 1.2s ease-in-out infinite;
-  opacity: 0.6;
+  animation: orbPulseActive 0.8s ease-in-out infinite;
+  opacity: 0.7;
   background: radial-gradient(
     circle,
-    rgba(240, 98, 146, 0.35) 0%,
-    rgba(248, 187, 208, 0.15) 40%,
+    rgba(240, 98, 146, 0.45) 0%,
+    rgba(248, 187, 208, 0.2) 40%,
     transparent 70%
   );
 }
 
 /* Together state - golden glow */
 .together .heartSvg {
-  animation: heartbeatTogether 0.6s ease-in-out infinite;
-  filter: drop-shadow(0 0 45px var(--gold-glow))
-    drop-shadow(0 0 90px rgba(255, 213, 79, 0.25))
-    drop-shadow(0 0 130px rgba(240, 98, 146, 0.15));
+  animation: heartbeatTogether 0.67s ease-in-out infinite;
+  filter: drop-shadow(0 0 55px var(--gold-glow))
+    drop-shadow(0 0 110px rgba(255, 213, 79, 0.4))
+    drop-shadow(0 0 160px rgba(240, 98, 146, 0.25));
 }
 
 .together .glowOrb {
-  width: 260px;
-  height: 260px;
+  width: 280px;
+  height: 280px;
   background: radial-gradient(
     circle,
-    rgba(255, 213, 79, 0.45) 0%,
-    rgba(240, 98, 146, 0.2) 40%,
-    rgba(206, 147, 216, 0.08) 65%,
+    rgba(255, 213, 79, 0.55) 0%,
+    rgba(240, 98, 146, 0.3) 40%,
+    rgba(206, 147, 216, 0.12) 65%,
     transparent 80%
   );
-  opacity: 0.75;
-  animation: orbPulseTogether 1s ease-in-out infinite;
+  opacity: 0.85;
+  animation: orbPulseTogether 0.67s ease-in-out infinite;
 }
 
+/* Idle: subtle lub-dub */
 @keyframes heartbeat {
   0%,
   100% {
     transform: scale(1);
   }
-  15% {
-    transform: scale(1.12);
+  12% {
+    transform: scale(1.2);
   }
-  30% {
+  24% {
     transform: scale(1);
   }
-  45% {
-    transform: scale(1.08);
+  36% {
+    transform: scale(1.14);
   }
-  60% {
+  48% {
     transform: scale(1);
   }
 }
 
+/* Active: pronounced lub-dub, synced with vibration (~75 bpm) */
 @keyframes heartbeatActive {
   0%,
   100% {
-    transform: scale(1.05);
+    transform: scale(1);
   }
-  50% {
-    transform: scale(1.2);
+  15% {
+    transform: scale(1.25);
+  }
+  25% {
+    transform: scale(1.02);
+  }
+  38% {
+    transform: scale(1.18);
+  }
+  48% {
+    transform: scale(1.02);
+  }
+  60%,
+  100% {
+    transform: scale(1);
   }
 }
 
+/* Together: stronger lub-dub, faster (~90 bpm) */
 @keyframes heartbeatTogether {
   0%,
   100% {
-    transform: scale(1.1);
+    transform: scale(1);
   }
-  50% {
+  14% {
     transform: scale(1.28);
+  }
+  24% {
+    transform: scale(1.02);
+  }
+  36% {
+    transform: scale(1.2);
+  }
+  46% {
+    transform: scale(1.02);
+  }
+  58%,
+  100% {
+    transform: scale(1);
   }
 }
 
@@ -131,11 +164,41 @@
   0%,
   100% {
     transform: scale(1);
-    opacity: 0.35;
+    opacity: 0.4;
   }
   50% {
+    transform: scale(1.3);
+    opacity: 0.7;
+  }
+}
+
+/* Active/together: orb syncs with heart lub-dub */
+@keyframes orbPulseActive {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  15% {
+    transform: scale(1.2);
+    opacity: 0.85;
+  }
+  25% {
+    transform: scale(1.05);
+    opacity: 0.7;
+  }
+  38% {
     transform: scale(1.15);
-    opacity: 0.55;
+    opacity: 0.8;
+  }
+  48% {
+    transform: scale(1.02);
+    opacity: 0.65;
+  }
+  60%,
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
   }
 }
 
@@ -143,10 +206,27 @@
   0%,
   100% {
     transform: scale(1);
-    opacity: 0.65;
+    opacity: 0.7;
   }
-  50% {
+  14% {
     transform: scale(1.25);
+    opacity: 0.95;
+  }
+  24% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  36% {
+    transform: scale(1.2);
     opacity: 0.9;
+  }
+  46% {
+    transform: scale(1.02);
+    opacity: 0.75;
+  }
+  58%,
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
   }
 }
