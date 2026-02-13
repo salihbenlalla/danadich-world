@@ -1,0 +1,77 @@
+.box {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 1rem 1.5rem;
+  min-width: 260px;
+  max-width: 360px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  animation: shimmer 4s ease-in-out infinite;
+}
+
+.box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 240, 245, 0.06) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+}
+
+.box:hover {
+  border-color: var(--glass-border-strong);
+  box-shadow: 0 0 20px rgba(233, 30, 99, 0.1);
+}
+
+.whisperText {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  text-align: center;
+  color: var(--text-primary);
+}
+
+.from {
+  font-weight: 600;
+  color: var(--rose);
+}
+
+.placeholder {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: center;
+  color: var(--text-primary);
+  direction: rtl;
+}
+
+.input::placeholder {
+  color: var(--text-secondary);
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(233, 30, 99, 0.05);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(233, 30, 99, 0.12);
+  }
+}

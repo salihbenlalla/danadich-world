@@ -1,0 +1,117 @@
+.dashboard {
+  position: relative;
+  min-height: 100dvh;
+  overflow: hidden;
+}
+
+.connectionDot {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  z-index: 100;
+  transition: background 0.3s ease;
+}
+
+.connected {
+  background: rgba(76, 175, 80, 0.7);
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.4);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  gap: 2rem;
+  padding: 2rem 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.statusCard {
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border-strong);
+  border-radius: 24px;
+  padding: 2rem 2.5rem;
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.statusCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 240, 245, 0.06) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+}
+
+.statusTitle {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+.currentStatus {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--lavender-blush);
+  line-height: 1.8;
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+.history {
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.historyItem {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  transition: opacity 0.3s ease;
+}
+
+.heartArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.whisperArea {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 2rem;
+}
+
+@keyframes statusPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}

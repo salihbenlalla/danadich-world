@@ -1,0 +1,49 @@
+.experience {
+  position: relative;
+  min-height: 100dvh;
+  overflow: hidden;
+}
+
+.connectionDot {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  z-index: 100;
+  transition: background 0.3s ease;
+}
+
+.connected {
+  background: rgba(76, 175, 80, 0.7);
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.4);
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  gap: 2rem;
+  padding: 2rem 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.heartArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 200px;
+}
+
+.whisperArea {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 2rem;
+}

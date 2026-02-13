@@ -1,0 +1,67 @@
+:root {
+  --rose: #f06292;
+  --rose-deep: #e91e63;
+  --rose-soft: rgba(240, 98, 146, 0.18);
+  --rose-glow: rgba(240, 98, 146, 0.45);
+  --rose-light: #f8bbd0;
+  --lavender-blush: #fff0f5;
+  --gold: #ffd54f;
+  --gold-soft: rgba(255, 213, 79, 0.3);
+  --gold-glow: rgba(255, 213, 79, 0.5);
+  --glass-bg: rgba(255, 240, 245, 0.09);
+  --glass-bg-strong: rgba(255, 240, 245, 0.14);
+  --glass-border: rgba(255, 240, 245, 0.18);
+  --glass-border-strong: rgba(255, 240, 245, 0.3);
+  --glass-blur: 18px;
+  --text-primary: #fff5f8;
+  --text-secondary: rgba(255, 245, 248, 0.72);
+  --bg-dark: #1a0a14;
+  --bg-gradient: radial-gradient(
+      ellipse at 50% 20%,
+      rgba(240, 98, 146, 0.14) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 20% 80%,
+      rgba(206, 147, 216, 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 80% 60%,
+      rgba(255, 213, 79, 0.05) 0%,
+      transparent 45%
+    ),
+    linear-gradient(180deg, #1a0a14 0%, #2a1020 50%, #1a0a14 100%);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  font-family: var(--font-tajawal), "Tajawal", sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-dark);
+  background-image: var(--bg-gradient);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  direction: rtl;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+input,
+textarea,
+button {
+  font-family: inherit;
+  color: inherit;
+}

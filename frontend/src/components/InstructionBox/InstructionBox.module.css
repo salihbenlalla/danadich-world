@@ -1,0 +1,56 @@
+.box {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 1.2rem 2rem;
+  max-width: 380px;
+  text-align: center;
+  animation: fadeInUp 0.8s ease-out forwards, autoFade 8s ease-in-out forwards;
+}
+
+.text {
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.fadeOut {
+  animation: fadeOutDown 0.6s ease-in forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes autoFade {
+  0%,
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(15px);
+    pointer-events: none;
+  }
+}

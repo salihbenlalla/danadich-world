@@ -1,0 +1,97 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: 2rem;
+  gap: 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.titleSection {
+  text-align: center;
+}
+
+.title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--lavender-blush);
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 40px var(--rose-glow);
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+}
+
+.buttons {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.glassButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border-strong);
+  border-radius: 24px;
+  padding: 2rem 3rem;
+  min-width: 160px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.glassButton::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 240, 245, 0.08) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+}
+
+.glassButton:hover {
+  border-color: var(--rose);
+  box-shadow: 0 0 30px var(--rose-glow), 0 0 60px rgba(233, 30, 99, 0.1);
+  transform: translateY(-3px);
+}
+
+.glassButton:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.buttonLabel {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--lavender-blush);
+}
+
+.buttonHint {
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--text-secondary);
+}
+
+.date {
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
