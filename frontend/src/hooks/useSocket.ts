@@ -44,7 +44,19 @@ function getWsUrl(): string {
   const wsPort = process.env.NEXT_PUBLIC_WS_PORT || "3001";
   // Use env URL if set and not localhost (production deployment)
   if (envUrl && !envUrl.includes("localhost")) {
-    return envUrl;
+    // Ensure full WebSocket URL: correct protocol and /ws path
+    let url = envUrl.trim();
+    if (url.startsWith("https://")) {
+      url = `wss://${url.slice(8)}`;
+    } else if (url.startsWith("http://")) {
+      url = `ws://${url.slice(7)}`;
+    } else if (!url.startsWith("ws://") && !url.startsWith("wss://")) {
+      url = `wss://${url}`;
+    }
+    if (!url.includes("/ws")) {
+      url = url.replace(/\/?$/, "/ws");
+    }
+    return url;
   }
   // In browser: use current hostname so devices on LAN connect correctly
   if (typeof window !== "undefined") {
